@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Brandon Invergo]]></title>
+  <link href="http://brandon.invergo.net/atom.xml" rel="self"/>
+  <link href="http://brandon.invergo.net/"/>
+  <updated>2020-07-04 11:34
+</updated>
+  <id>http://brandon.invergo.net/</id>
+  <author>
+    <name><![CDATA[Brandon Invergo]]></name>
+    <email><![CDATA[brandon@invergo.net]]></email>
+  </author>
+  <generator uri="https://gitorious.org/bi-websites/m4-bloggery/">m4-bloggery</generator>
+
+
