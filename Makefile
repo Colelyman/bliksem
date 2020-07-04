@@ -1,4 +1,4 @@
-MARKDOWN = markdown
+MARKDOWN = md4c/build/md2html/md2html
 
 # Copies files from src/ to dst/. Any .html files are
 # interpreted by GNU m4 and wrapped in a the GNU m4
@@ -62,17 +62,17 @@ index:
 	done
 	echo "\"}\"})" >> $(POSTS)/index.html.m4
 
-atom:
+atom: $(MARKDOWN)
 	m4 -P $(MACROS) $(ATOM_T) > $(SRC)/atom.xml
 	for f in $(sorted_posts); do \
 		link="`basename $$f .md.m4`.html";\
 		$(MARKDOWN) $$f | m4 -D "__URL"=$$link -P $(MACROS) - $(ATOM_E_T) \
-			| head -n -4 >> $(SRC)/atom.xml; \
+			| tail -n +4 >> $(SRC)/atom.xml; \
 	done
 	echo "</feed>" >> $(SRC)/atom.xml
 
 
-$(SRC)/%.html.m4: $(SRC)/%.md.m4
+$(SRC)/%.html.m4: $(SRC)/%.md.m4 $(MARKDOWN)
 	$(MARKDOWN) $< | \
 		sed -e 's/^<p>\(.*({"\)/\1/g;s/^<p>\(.*"})\)/\1/g;s/\(({".*\)<\/p>/\1/g;s/\("}).*\)<\/p>/\1/g' > $@
 
@@ -96,6 +96,13 @@ new-post:
 	if [[ "$(TITLE)" == "" ]]; then echo "Error: no TITLE set"; fi
 	m4 -DTITLE="$(TITLE)" -P $(TEMPLATES)/new_post.md.m4 > \
 		$(POSTS)/$(shell date +%Y-%m-%d)-$(subst $(sp),-,$(TITLE)).md.m4
+
+$(MARKDOWN):
+	cd md4c && \
+	mkdir -p build && \
+	cd build && \
+	cmake .. && \
+	make
 
 deploy:
 	$(RSYNC) -avze 'ssh -p $(SSH_PORT)' $(RSYNC_DELETE) $(DST)/ $(SSH_USER):$(DOC_ROOT)
