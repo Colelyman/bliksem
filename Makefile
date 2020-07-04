@@ -7,7 +7,7 @@ MARKDOWN = md4c/build/md2html/md2html
 
 MACROS    := macros.m4
 SRC	  := src
-DST       := dst
+DST       := build
 TEMPLATES := templates
 BLOG      := news
 PAGES     := $(SRC)/pages
@@ -37,8 +37,9 @@ raw_pages  := $(raw_pages:.md=.html)
 
 sp :=
 sp += # add space
-post-sort = $(shell echo -e $(subst $(sp),'\n',$2) | sort $1 --key=1,1 -)
+post-sort = $(shell echo $(subst $(sp),'\n',$2) | sort $1 --key=1,1 -)
 sorted_posts := $(addprefix $(POSTS)/,$(call post-sort,-r,$(notdir $(wildcard $(POSTS)/*.md.m4))))
+
 
 all: clean-index clean-atom index atom posts pages
 
@@ -80,7 +81,8 @@ $(SRC)/%: $(SRC)/%.m4 $(MACROS)
 	m4 -P $(MACROS) $< > $@
 
 $(DST)/%: $(SRC)/%
-	install -m 644 -D $< $@
+	mkdir -p $(subst $(SRC),$(DST),$(dir $<))
+	cp -r $< $@
 
 clean-index:
 	-rm $(POSTS)/index.html.m4
