@@ -19,6 +19,8 @@ PAGE_T    := $(TEMPLATES)/page.html.m4
 ATOM_T    := $(TEMPLATES)/atom.xml.m4
 ATOM_E_T  := $(TEMPLATES)/atom_entry.xml.m4
 
+P_TAG_REGEXP = 's/^<p>\(.*({|\)/\1/g;s/^<p>\(.*|})\)/\1/g;s/\(({|.*\)<\/p>/\1/g;s/\(|}).*\)<\/p>/\1/g'
+
 COPYRIGHTYEAR := $(shell date +"%Y")
 
 # Build a list of all the files that should exist when the
@@ -71,14 +73,14 @@ atom: $(MARKDOWN)
 		link="`basename $$f .md.m4`.html";\
 		$(MARKDOWN) $$f | m4 -D "__URL"=$$link \
 			-P $(MACROS) - $(ATOM_E_T) \
-			| tail -n +4 >> $(SRC)/atom.xml; \
+			| sed -e $(P_TAG_REGEXP) | tail -r | tail -n +2 | tail -r >> $(SRC)/atom.xml; \
 	done
 	echo "</feed>" >> $(SRC)/atom.xml
 
 
 $(SRC)/%.html.m4: $(SRC)/%.md.m4 $(MARKDOWN)
 	$(MARKDOWN) $< | \
-		sed -e 's/^<p>\(.*({|\)/\1/g;s/^<p>\(.*|})\)/\1/g;s/\(({|.*\)<\/p>/\1/g;s/\(|}).*\)<\/p>/\1/g' > $@
+		sed -e $(P_TAG_REGEXP) > $@
 
 $(SRC)/%: $(SRC)/%.m4 $(MACROS)
 	m4 -P $(MACROS) $< > $@

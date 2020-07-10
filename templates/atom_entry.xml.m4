@@ -1,4 +1,4 @@
-m4_divert(1)
+m4_divert(0)
   <entry>
     <title type="html"><![CDATA[__TITLE]]></title>
     <link href="__ROOT/news/__URL"/>

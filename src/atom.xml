@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Brandon Invergo]]></title>
-  <link href="http://brandon.invergo.net/atom.xml" rel="self"/>
-  <link href="http://brandon.invergo.net/"/>
-  <updated>2020-07-04 11:34
+  <title><![CDATA[Cole Lyman]]></title>
+  <link href="__ROOT/atom.xml" rel="self"/>
+  <link href="__ROOT/"/>
+  <updated>2020-07-09 22:04
 </updated>
-  <id>http://brandon.invergo.net/</id>
+  <id>__ROOT/</id>
   <author>
-    <name><![CDATA[Brandon Invergo]]></name>
-    <email><![CDATA[brandon@invergo.net]]></email>
+    <name><![CDATA[Cole Lyman]]></name>
+    <email><![CDATA[cole@colelyman.com]]></email>
   </author>
-  <generator uri="https://gitorious.org/bi-websites/m4-bloggery/">m4-bloggery</generator>
+  <generator uri="https://github.com/Colelyman/last">last</generator>
 
-
+  <entry>
+    <title type="html"><![CDATA[example post]]></title>
+    <link href="__ROOT/news/2013-02-19-example-post.html"/>
+    <updated>2013-02-19 17:57</updated>
+    <id>__ROOT/news/2013-02-19-example-post.html</id>
+    <content type="html"><![CDATA[<p>
+Here's an example post.
+</p>]]></content>
+  </entry>
+</feed>
