@@ -1,0 +1,25 @@
+body {
+    margin-top: 80px;
+    padding: 30px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+}
+
+header * {
+    display: inline;
+}
+
+header li {
+    margin: 10px;
+}
+
+footer * {
+    display: inline;
+}
+
+footer li {
+    margin: 10px;
+}
