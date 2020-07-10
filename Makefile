@@ -6,7 +6,7 @@ MARKDOWN = md4c/build/md2html/md2html
 # file.
 
 MACROS    := macros.m4
-SRC	  := src
+SRC	  	  := src
 DST       := build
 TEMPLATES := templates
 BLOG      := news
@@ -18,6 +18,8 @@ POST_T	  := $(TEMPLATES)/post.html.m4
 PAGE_T    := $(TEMPLATES)/page.html.m4
 ATOM_T    := $(TEMPLATES)/atom.xml.m4
 ATOM_E_T  := $(TEMPLATES)/atom_entry.xml.m4
+
+COPYRIGHTYEAR := $(shell date +"%Y")
 
 # Build a list of all the files that should exist when the
 # baking is done. We do this by getting a list of all the
@@ -54,20 +56,21 @@ $(SRC)/%.html: $(SRC)/%.html.m4 $(MACROS) $(MAIN_T) $(PAGE_T)
 	m4 -P $(MACROS) $< $(PAGE_T) $(MAIN_T) > $@
 
 index:
-	echo "TITLE({\"News\"})" >> $(POSTS)/index.html.m4
-	echo "BODY({\"{\"" >> $(POSTS)/index.html.m4
+	echo "TITLE({|News|})" >> $(POSTS)/index.html.m4
+	echo "BODY({|{|" >> $(POSTS)/index.html.m4
 	for f in $(sorted_posts); do \
 		link="`basename $$f .md.m4`.html";\
-		head -n3 $$f | m4 -D "__URL"=$$link  \
+		head -n3 $$f | m4 -D "__URL"=$$link \
 			-P $(MACROS) - $(BLOG_T) >> $(POSTS)/index.html.m4; \
 	done
-	echo "\"}\"})" >> $(POSTS)/index.html.m4
+	echo "|}|})" >> $(POSTS)/index.html.m4
 
 atom: $(MARKDOWN)
 	m4 -P $(MACROS) $(ATOM_T) > $(SRC)/atom.xml
 	for f in $(sorted_posts); do \
 		link="`basename $$f .md.m4`.html";\
-		$(MARKDOWN) $$f | m4 -D "__URL"=$$link -P $(MACROS) - $(ATOM_E_T) \
+		$(MARKDOWN) $$f | m4 -D "__URL"=$$link \
+			-P $(MACROS) - $(ATOM_E_T) \
 			| tail -n +4 >> $(SRC)/atom.xml; \
 	done
 	echo "</feed>" >> $(SRC)/atom.xml
@@ -75,7 +78,7 @@ atom: $(MARKDOWN)
 
 $(SRC)/%.html.m4: $(SRC)/%.md.m4 $(MARKDOWN)
 	$(MARKDOWN) $< | \
-		sed -e 's/^<p>\(.*({"\)/\1/g;s/^<p>\(.*"})\)/\1/g;s/\(({".*\)<\/p>/\1/g;s/\("}).*\)<\/p>/\1/g' > $@
+		sed -e 's/^<p>\(.*({|\)/\1/g;s/^<p>\(.*|})\)/\1/g;s/\(({|.*\)<\/p>/\1/g;s/\(|}).*\)<\/p>/\1/g' > $@
 
 $(SRC)/%: $(SRC)/%.m4 $(MACROS)
 	m4 -P $(MACROS) $< > $@

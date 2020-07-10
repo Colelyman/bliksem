@@ -10,4 +10,4 @@ m4_divert<?xml version="1.0" encoding="utf-8"?>
     <name><![CDATA[__AUTHOR]]></name>
     <email><![CDATA[__EMAIL]]></email>
   </author>
-  <generator uri="https://gitorious.org/bi-websites/m4-bloggery/">m4-bloggery</generator>
+  <generator uri="https://github.com/Colelyman/last">last</generator>

@@ -1,5 +1,14 @@
 m4_dnl	Define a macro that will be expanded in the HTML template.
-TITLE({"m4-bloggery demo"})
+TITLE({|last demo|})
 
-BODY({"{"Yes!
-"}"})
+BODY({|{|
+
+<section>
+
+Yes!
+Is this really working?!
+
+I think so!
+
+</section>
+|}|})
