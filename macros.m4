@@ -16,6 +16,13 @@ m4_define({|BODY|},
 m4_dnl TODO fix this
 m4_define({|TAGS|},
 	{|m4_define({|__TAGS|}, $1)m4_dnl|})m4_dnl
+m4_define({|__FN_NUM|},0)
+m4_define({|FN|},m4_dnl
+    {|<label for="fn-__FN_NUM" class="margin-toggle sidenote-number"></label>
+    <span class="sidenote">$1</span>
+    <input type="checkbox" id="fn-__FN_NUM" class="margin-toggle"/>
+    m4_define({|__FN_NUM|},m4_incr(__FN_NUM))m4_dnl
+    |})m4_dnl
 m4_dnl  ----------------------------------------------------------------------
 m4_dnl  Configuration of the site
 m4_dnl  ----------------------------------------------------------------------

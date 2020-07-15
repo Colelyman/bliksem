@@ -3,12 +3,12 @@ TITLE({|last demo|})
 
 BODY({|{|
 
-<section>
-
 Yes!
 Is this really working?!
+FN({|This is another footnote... does it work?|})
+I guess the paragraph can't end in a footnote.
 
 I think so!
+FN({|This is a footnote.|})
 
-</section>
 |}|})

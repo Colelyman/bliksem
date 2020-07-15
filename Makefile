@@ -62,8 +62,8 @@ index:
 	echo "BODY({|{|" >> $(POSTS)/index.html.m4
 	for f in $(sorted_posts); do \
 		link="`basename $$f .md.m4`.html";\
-		head -n3 $$f | m4 -D "__URL"=$$link \
-			-P $(MACROS) - $(BLOG_T) >> $(POSTS)/index.html.m4; \
+		m4 -D "__URL"=$$link \
+			-P $(MACROS) $$f $(BLOG_T) >> $(POSTS)/index.html.m4; \
 	done
 	echo "|}|})" >> $(POSTS)/index.html.m4
 
